@@ -1,4 +1,4 @@
-package family.family_communication_board;
+package GDG_Project.family_communication_board;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

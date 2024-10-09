@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Pictures</title>
+</head>
+<body>
+<h1>Uploaded Pictures</h1>
+<div class="image-gallery">
+    <!-- Thymeleaf 사용을 가정 -->
+    <div th:each="picture : ${pictures}">
+        <img th:src="'/uploads/' + ${picture.pictureName}" alt="Uploaded Image" />
+    </div>
+</div>
+</body>
+</html>

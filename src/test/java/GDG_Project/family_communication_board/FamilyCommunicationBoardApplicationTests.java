@@ -1,4 +1,4 @@
-package family.family_communication_board;
+package GDG_Project.family_communication_board;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
