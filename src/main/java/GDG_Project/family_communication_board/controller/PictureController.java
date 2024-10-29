@@ -25,6 +25,7 @@ public class PictureController {
     public String uploadPicture(@RequestParam("chooseFile") MultipartFile file) {
         if (!file.isEmpty()) {
             try {
+                log.info ("success to file upload");
                 pictureService.uploadPicture(file);
             } catch (IOException e) {
                 log.error("Fail to upload picture", e);

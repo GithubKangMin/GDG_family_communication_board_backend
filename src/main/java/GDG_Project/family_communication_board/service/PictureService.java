@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,7 +29,10 @@ public class PictureService {
         Path path = Paths.get(uploadDirectory + file.getOriginalFilename());
         Files.write(path, bytes);
 
-        Picture picture = new Picture(file.getOriginalFilename(), LocalDateTime.now());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+        String currentDateStr = sdf.format(new Date());
+
+        Picture picture = new Picture(file.getOriginalFilename(), Integer.parseInt(currentDateStr));
         pictureRepository.uploadPicture(picture);
     }
 

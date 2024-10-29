@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PictureRepository {
 
-    @Insert("Insert into picture (picture_name, upload_date) VALUES  ({#{pictureName}, #{uploadDate})")
+    @Insert("Insert into picture (picture_name, upload_date) VALUES  (#{name}, #{uploadDate})")
     void uploadPicture(Picture picture);
 
     @Select("SELECT * From picture")

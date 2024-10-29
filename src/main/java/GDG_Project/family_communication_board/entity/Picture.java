@@ -1,17 +1,20 @@
 package GDG_Project.family_communication_board.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data // -> getter, setter
+
+@Getter
+@Setter
 public class Picture {
 
     private String name;
-    private LocalDateTime uploadDate;
+    private int uploadDate;
     private Long id = 0L;
 
-    public Picture(String name, LocalDateTime date) {
+    public Picture(String name, int date) {
         this.name = name;
         this.id++;
         this.uploadDate = date;
