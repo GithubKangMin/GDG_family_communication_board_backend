@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Pictures</title>
+    <style>
+        body, h1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #image-gallery {
+            border: 1px solid #333;
+            padding: 20px;
+            width: 300px;
+        }
+
+        .comment {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Uploaded Pictures</h1>
+<div id="image-gallery"></div>
+
+<script>
+    fetch('/comment', {method: 'POST'})
+        .then(response => response.json())
+        .then(pictures => {
+            const gallery = document.getElementById('image-gallery');
+            pictures.forEach(picture => {
+                const img = document.createElement('img');
+                img.src = '/uploads/' + picture.name;
+                img.alt = 'Uploaded Image';
+                img.style.width = '200px';
+                img.style.height = 'auto';
+
+                const p = document.createElement('p');
+                p.textContent = `사진 게시 날짜: ${picture.uploadDate}`;
+
+                gallery.appendChild(img);
+                gallery.appendChild(p);
+            });
+        })
+        .catch(error => console.error('Error loading images:', error));
+
+</script>
+</body>
+</html>

@@ -3,24 +3,17 @@
 
 db 초기 쿼리
 use picture;
+
 CREATE TABLE picture (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     picture_name VARCHAR(255) NOT NULL,
     upload_date INT NOT NULL
 );
 
-BadGrammarSqlException
-### SQL: Insert into picture (picture_name, upload_date) VALUES  ({?, ?)
--> PictureRepository SQL Query Check! -> 해결
+delete from picture;
+ALTER TABLE picture AUTO_INCREMENT = 1;
 
 
-java.sql.SQLException:### Error updating database.  Cause: java.sql.SQLException: Data truncated for column 'upload_date' at row 1
-                      ### The error may exist in GDG_Project/family_communication_board/repository/PictureRepository.java (best guess)
-                      ### The error may involve GDG_Project.family_communication_board.repository.PictureRepository.uploadPicture-Inline
-                      ### The error occurred while setting parameters
-                      ### SQL: Insert into picture (picture_name, upload_date) VALUES  (?, ?)
-                      ### Cause: java.sql.SQLException: Data truncated for column 'upload_date' at row 1
-                      ; Data truncated for column 'upload_date' at row 1] with root cause
--> picture.uploadDate 형식 int로 변경
 
--> 404 ERROR!!!!!!!!!!
+
+// 에러 페이지 만들기

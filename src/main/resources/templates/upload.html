@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload Example</title>
-    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="/upload.css">
 </head>
 <body>
 <div class="container">
     <div class="image-upload" id="image-upload">
 
         <!-- Form with POST method to upload the image -->
-        <form method="post" action="/picture/upload" enctype="multipart/form-data" id="uploadForm">
+        <form method="post" action="/upload" enctype="multipart/form-data" id="uploadForm">
             <div class="button">
                 <label for="chooseFile">
                     [ 사진 고르기 ]
@@ -34,6 +34,6 @@
 
     <div class="image-show" id="image-show"></div>
 </div>
-<script src="upload.js"></script>
+<script src="/upload.js"></script>
 </body>
 </html>

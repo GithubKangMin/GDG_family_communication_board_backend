@@ -21,4 +21,5 @@ function loadFile(input) {
 function submitForm() {
     // 이미지 업로드를 서버로 전달
     document.getElementById('uploadForm').submit();
+
 }

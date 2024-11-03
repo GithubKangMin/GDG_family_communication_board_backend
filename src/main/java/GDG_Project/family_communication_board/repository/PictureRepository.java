@@ -8,13 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
+
 @Repository
+@Mapper
 public interface PictureRepository {
 
-    @Insert("Insert into picture (picture_name, upload_date) VALUES  (#{name}, #{uploadDate})")
+    @Insert("INSERT INTO picture (picture_name, upload_date) VALUES (#{name}, #{uploadDate})")
     void uploadPicture(Picture picture);
 
-    @Select("SELECT * From picture")
+    @Select("SELECT picture_name AS name, upload_date AS uploadDate FROM picture")
     List<Picture> findAllPicture();
+
+    @Select("SELECT id, picture_name AS name, upload_date AS uploadDate FROM picture WHERE picture_name = #{name}")
+    Picture findPictureById(Long id);
 }
