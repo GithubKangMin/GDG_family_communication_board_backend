@@ -32,15 +32,16 @@ public class PictureController {
                 return "파일 업로드에 실패했습니다.";
             }
         }
-        log.error("success to upload picture");
-        return "redirect:/comment";  // 파일 업로드 후 comment.html로 리다이렉트
+        log.info("success to upload picture");
+        return "redirect:/comment.html";  // 파일 업로드 후 comment.html로 리다이렉트
     }
 
     // 모든 사진을 가져와서 comment.html에 표시
-    @GetMapping("/comment")
+    @PostMapping("/comment")
     public String getAllPictures(Model model) {
         List<Picture> pictures = pictureService.findAllPicture();
         model.addAttribute("pictures", pictures);
-        return "comment";  // comment.html에 사진 데이터 전달
+        log.info("사진 결과: {}", pictures);
+        return "comment.html";  // comment.html에 사진 데이터 전달
     }
 }
