@@ -1,7 +1,6 @@
 package GDG_Project.family_communication_board.repository;
 
 import GDG_Project.family_communication_board.entity.Picture;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -12,8 +11,7 @@ import java.util.List;
 
 @Repository
 @Mapper
-public interface
-PictureRepository {
+public interface PictureRepository {
 
     @Insert("INSERT INTO picture (picture_name, upload_date) VALUES (#{name}, #{uploadDate})")
     void uploadPicture(Picture picture);

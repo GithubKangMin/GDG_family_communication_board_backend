@@ -22,7 +22,7 @@ public class PictureService {
     @Autowired
     private PictureRepository pictureRepository;
 
-    // 프로젝트 내에 저장
+    // project -> resources/static/"upload"
     private final String uploadDirectory = Paths.get("src/main/resources/static/uploads/").toAbsolutePath().toString();
 
     public void uploadPicture(MultipartFile file) throws IOException {
@@ -34,7 +34,6 @@ public class PictureService {
         Files.createDirectories(path.getParent());
         Files.write(path, bytes);
 
-//        Picture picture = new Picture(file.getOriginalFilename(), Integer.parseInt(new SimpleDateFormat("yyMMdd").format(new Date())));
         Picture picture = new Picture(filename, Integer.parseInt(new SimpleDateFormat("yyMMdd").format(new Date())));
         pictureRepository.uploadPicture(picture);
         log.info("Saved picture to database: {}", picture);

@@ -52,7 +52,7 @@ public class PictureController {
                 log.info ("successfully uploaded file");
             } catch (IOException e) {
                 log.error("Fail to upload picture", e);
-                return "파일 업로드에 실패했습니다.";
+                return "Fail to upload picture";
             }
         }
         log.info("success to upload picture");
@@ -63,7 +63,7 @@ public class PictureController {
     @ResponseBody
     public List<Picture> getAllPictures() {
         List<Picture> pictures = pictureService.findAllPicture();
-        log.info("사진 결과: {}", pictures);
+        log.info("Picture Result: {}", pictures);
         return pictures;  
     }
     
