@@ -11,7 +11,8 @@ import java.util.List;
 
 @Repository
 @Mapper
-public interface PictureRepository {
+public interface
+PictureRepository {
 
     @Insert("INSERT INTO picture (picture_name, upload_date) VALUES (#{name}, #{uploadDate})")
     void uploadPicture(Picture picture);

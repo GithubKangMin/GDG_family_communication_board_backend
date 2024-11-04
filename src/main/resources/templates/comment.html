@@ -10,29 +10,47 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
         #image-gallery {
             border: 1px solid #333;
             padding: 20px;
-            width: 300px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .picture-container {
+            border: 1px solid #333;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+        }
+
+        .comment-box {
+            margin-top: 10px;
+            text-align: left;
         }
 
         .comment {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            margin-bottom: 5px;
         }
 
-        .btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
+        .delete-btn {
+            color: red;
             cursor: pointer;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -41,26 +59,124 @@
 <div id="image-gallery"></div>
 
 <script>
-    fetch('/comment', {method: 'POST'})
+    function loadComments(pictureName, container) {
+        fetch(`/comments?pictureName=${pictureName}`)
+            .then(response => response.json())
+            .then(comments => {
+                const commentsContainer = document.createElement('div');
+                commentsContainer.classList.add('comment-box');
+                commentsContainer.id = `comments-container-${pictureName}`;
+
+                (Array.isArray(comments) ? comments : []).forEach(comment => {
+                    const commentElem = document.createElement('div');
+                    commentElem.classList.add('comment');
+                    commentElem.textContent = comment.content;  // 댓글 내용
+
+                    const deleteBtn = document.createElement('span');
+                    deleteBtn.classList.add('delete-btn');
+                    deleteBtn.textContent = "삭제";
+
+                    // comment.id와 comment.content를 사용하여 올바른 값을 전달
+                    deleteBtn.onclick = () => deleteComment(pictureName, comment.content, commentElem);
+
+                    commentElem.appendChild(deleteBtn);
+                    commentsContainer.appendChild(commentElem);
+                });
+
+                container.appendChild(commentsContainer);
+
+                const commentForm = document.createElement('div');
+                commentForm.innerHTML = `
+                <input type="text" placeholder="댓글을 입력하세요" id="comment-${pictureName}">
+                <button onclick="addComment('${pictureName}')">추가</button>
+            `;
+                container.appendChild(commentForm);
+            })
+            .catch(error => console.error('Error loading comments:', error));
+    }
+
+
+    function addComment(pictureName) {
+        const input = document.getElementById(`comment-${pictureName}`);
+        const content = input.value.trim();
+
+        if (!content) return;
+
+        fetch(`/addComment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ pictureName, content })
+        })
+            .then(response => response.json())
+            .then(comment => {
+                const commentsContainer = document.getElementById(`comments-container-${pictureName}`);
+
+                const commentElem = document.createElement('div');
+                commentElem.classList.add('comment');
+                commentElem.textContent = comment.content;
+
+                const deleteBtn = document.createElement('span');
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.textContent = "삭제";
+// 여기를 수정하여 올바른 매개변수를 전달합니다.
+                deleteBtn.onclick = () => deleteComment(pictureName, comment.content, commentElem); // 수정된 부분
+
+                commentElem.appendChild(deleteBtn);
+                commentsContainer.appendChild(commentElem);
+
+
+
+                input.value = '';
+            })
+            .catch(error => console.error('Error adding comment:', error));
+    }
+
+    function deleteComment(pictureName, content, commentElem) {
+        fetch(`/deleteComment?pictureName=${encodeURIComponent(pictureName)}&content=${encodeURIComponent(content)}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Failed to delete comment');
+                }
+            })
+            .then(() => {
+                commentElem.remove();  // 댓글 요소 삭제
+            })
+            .catch(error => console.error('Error deleting comment:', error));
+    }
+
+
+
+
+    fetch('/comment', { method: 'POST' })
         .then(response => response.json())
         .then(pictures => {
             const gallery = document.getElementById('image-gallery');
             pictures.forEach(picture => {
+                const container = document.createElement('div');
+                container.classList.add('picture-container');
+                container.id = `picture-${picture.name}`;
+
                 const img = document.createElement('img');
                 img.src = '/uploads/' + picture.name;
                 img.alt = 'Uploaded Image';
-                img.style.width = '200px';
-                img.style.height = 'auto';
 
                 const p = document.createElement('p');
                 p.textContent = `사진 게시 날짜: ${picture.uploadDate}`;
 
-                gallery.appendChild(img);
-                gallery.appendChild(p);
+                container.appendChild(img);
+                container.appendChild(p);
+                gallery.appendChild(container);
+
+                loadComments(picture.name, container);
             });
         })
         .catch(error => console.error('Error loading images:', error));
-
 </script>
 </body>
 </html>

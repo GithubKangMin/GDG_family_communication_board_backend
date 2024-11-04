@@ -8,15 +8,12 @@ import java.util.List;
 @Mapper
 public interface CommentRepository {
 
-    @Insert("INSERT INTO comment (picture_id, text, upload_date) VALUES (#{pictureId}, #{text}, #{uploadDate})")
-    void saveComment(Comment comment);
+    @Insert("INSERT INTO comment (picture_name, content) VALUES (#{pictureName}, #{content})")
+    void addComment(Comment comment);
 
-    @Select("SELECT id, picture_id AS pictureId, text, upload_date AS uploadDate FROM comment WHERE picture_id = #{pictureId}")
-    List<Comment> findCommentsByPictureId(Long pictureId);
+    @Delete("DELETE FROM comment WHERE  content = #{content} AND picture_name = #{pictureName}")
+    void deleteComment(@Param("pictureName") String pictureName, @Param("content") String content);
 
-    @Delete("DELETE FROM comment WHERE id = #{id}")
-    void deleteComment(Long id);
-
-    @Update("UPDATE comment SET text = #{text} WHERE id = #{id}")
-    void updateComment(@Param("id") Long id, @Param("text") String text);
+    @Select("SELECT * FROM comment WHERE picture_name = #{pictureName}")
+    List<Comment> findCommentsByPictureName(String pictureName);
 }

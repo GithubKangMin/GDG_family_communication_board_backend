@@ -1,5 +1,6 @@
 package GDG_Project.family_communication_board.controller;
 
+import GDG_Project.family_communication_board.entity.Comment;
 import GDG_Project.family_communication_board.entity.Picture;
 import GDG_Project.family_communication_board.service.CommentService;
 import GDG_Project.family_communication_board.service.PictureService;
@@ -21,9 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -33,6 +32,8 @@ public class PictureController {
 
     @Autowired
     private CommentService commentService;
+
+
 
     @GetMapping("/upload")
     public String uploadPage() {
@@ -67,7 +68,8 @@ public class PictureController {
         log.info("사진 결과: {}", pictures);
         return pictures;  // Return JSON data directly
     }
-    
+
+
     // 파일 업로드 동시에 읽어오기
     @GetMapping("/uploads/{filename}")
     @ResponseBody
@@ -90,23 +92,27 @@ public class PictureController {
         }
     }
 
+    @GetMapping("/comments")
+    @ResponseBody
+    public List<Comment> getCommentsByPictureName(@RequestParam String pictureName) {
+        return commentService.getCommentsByPictureName(pictureName);
+    }
 
-    /*@GetMapping("/comment")
-    public String showAllPicturesWithComments(Model model) {
-        //
-        List<Picture> pictures = pictureService.findAllPicture();
+    @PostMapping("/addComment")
+    @ResponseBody
+    public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
+        commentService.addComment(comment);
+        return ResponseEntity.ok(comment);
+    }
 
-        // 각 사진에 대해 댓글을 조회하여 Map에 저장합니다.
-        Map<Long, List<Comment>> pictureComments = new HashMap<>();
-        for (Picture picture : pictures) {
-            List<Comment> comments = commentService.getCommentsByPictureId(picture.getId());
-            pictureComments.put(picture.getId(), comments);
-        }
+    @DeleteMapping("/deleteComment")
+    @ResponseBody
+    public ResponseEntity<String> deleteComment(@RequestParam String pictureName, @RequestParam String content) {
 
-        model.addAttribute("pictures", pictures);
-        model.addAttribute("pictureComments", pictureComments);
-        return "comment";  // comment.html 뷰로 이동
-    }*/
+        log.info("delete pictureName: {}, content: {}", pictureName, content);
+        commentService.deleteComment(pictureName, content);
+        return ResponseEntity.ok("Comment deleted successfully");
+    }
 
 
 }
