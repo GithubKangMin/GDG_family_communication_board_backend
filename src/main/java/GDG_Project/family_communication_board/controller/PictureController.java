@@ -33,16 +33,14 @@ public class PictureController {
     @Autowired
     private CommentService commentService;
 
-
-
     @GetMapping("/upload")
     public String uploadPage() {
-        return "upload";  // upload.html 파일을 반환
+        return "upload";  // 상대경로
     }
 
     @GetMapping("/comment")
     public String commentPage() {
-        return "comment";  // upload.html 파일을 반환
+        return "comment";  // 상대경로
     }
 
     @PostMapping("/upload")
@@ -66,10 +64,9 @@ public class PictureController {
     public List<Picture> getAllPictures() {
         List<Picture> pictures = pictureService.findAllPicture();
         log.info("사진 결과: {}", pictures);
-        return pictures;  // Return JSON data directly
+        return pictures;  
     }
-
-
+    
     // 파일 업로드 동시에 읽어오기
     @GetMapping("/uploads/{filename}")
     @ResponseBody
@@ -92,12 +89,14 @@ public class PictureController {
         }
     }
 
+    // 사진 + 댓글 리스트 불러오기
     @GetMapping("/comments")
     @ResponseBody
     public List<Comment> getCommentsByPictureName(@RequestParam String pictureName) {
         return commentService.getCommentsByPictureName(pictureName);
     }
 
+    // 댓글 추가
     @PostMapping("/addComment")
     @ResponseBody
     public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
@@ -105,13 +104,23 @@ public class PictureController {
         return ResponseEntity.ok(comment);
     }
 
+    
+    // 댓글 삭제
     @DeleteMapping("/deleteComment")
     @ResponseBody
     public ResponseEntity<String> deleteComment(@RequestParam String pictureName, @RequestParam String content) {
-
         log.info("delete pictureName: {}, content: {}", pictureName, content);
         commentService.deleteComment(pictureName, content);
         return ResponseEntity.ok("Comment deleted successfully");
+    }
+
+    
+    // 전체 삭제
+    @DeleteMapping("/deletePicture")
+    @ResponseBody
+    public ResponseEntity<String> deletePicture(@RequestParam String pictureName) {
+        commentService.deleteCommentsByPictureName(pictureName); // Implement this to delete all comments for the picture
+        return ResponseEntity.ok("Picture and associated comments deleted successfully");
     }
 
 

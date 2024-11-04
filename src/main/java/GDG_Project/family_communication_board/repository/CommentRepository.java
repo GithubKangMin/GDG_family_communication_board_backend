@@ -16,4 +16,10 @@ public interface CommentRepository {
 
     @Select("SELECT * FROM comment WHERE picture_name = #{pictureName}")
     List<Comment> findCommentsByPictureName(String pictureName);
+
+    @Delete("DELETE FROM comment WHERE picture_name = #{pictureName}")
+    void deleteCommentsByPictureName(@Param("pictureName") String pictureName);
+
+    @Delete("DELETE FROM picture WHERE picture_name = #{pictureName}")
+    void deletePictureByPictureName(@Param("pictureName") String pictureName);
 }

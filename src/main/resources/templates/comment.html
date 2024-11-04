@@ -12,8 +12,8 @@
             align-items: center;
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 0;
-            padding: 0;
+            margin: 5px;
+            padding: 5px;
         }
 
         #image-gallery {
@@ -23,12 +23,32 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-
         .picture-container {
             border: 1px solid #333;
             padding: 15px;
-            margin-bottom: 20px;
+            margin-top: 30px; /* Increase top margin */
+            margin-bottom: 10px; /* Reduce bottom margin */
+            position: relative; /* To position delete button at top-right */
         }
+
+        .comment-box {
+            margin-top: 10px;
+            text-align: left;
+            word-break: break-word; /* Allow long comments to wrap to the next line */
+        }
+
+        .delete-photo-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
 
         img {
             width: 100%;
@@ -95,7 +115,6 @@
             .catch(error => console.error('Error loading comments:', error));
     }
 
-
     function addComment(pictureName) {
         const input = document.getElementById(`comment-${pictureName}`);
         const content = input.value.trim();
@@ -150,10 +169,55 @@
             .catch(error => console.error('Error deleting comment:', error));
     }
 
-
-
+    // Add this function for deleting a picture and its comments
+    function deletePhoto(pictureName, container) {
+        fetch(`/deletePicture?pictureName=${encodeURIComponent(pictureName)}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    container.remove(); // Remove the photo container from the DOM
+                } else {
+                    throw new Error('Failed to delete photo');
+                }
+            })
+            .catch(error => console.error('Error deleting photo:', error));
+    }
 
     fetch('/comment', { method: 'POST' })
+        .then(response => response.json())
+        .then(pictures => {
+            const gallery = document.getElementById('image-gallery');
+            pictures.forEach(picture => {
+                const container = document.createElement('div');
+                container.classList.add('picture-container');
+                container.id = `picture-${picture.name}`;
+
+                // Delete Photo button
+                const deletePhotoBtn = document.createElement('button');
+                deletePhotoBtn.classList.add('delete-photo-btn');
+                deletePhotoBtn.textContent = '사진삭제';
+                deletePhotoBtn.onclick = () => deletePhoto(picture.name, container);
+                container.appendChild(deletePhotoBtn);
+
+                const img = document.createElement('img');
+                img.src = '/uploads/' + picture.name;
+                img.alt = 'Uploaded Image';
+
+                const p = document.createElement('p');
+                p.textContent = `사진 게시 날짜: ${picture.uploadDate}`;
+
+                container.appendChild(img);
+                container.appendChild(p);
+                gallery.appendChild(container);
+
+                loadComments(picture.name, container);
+            });
+        })
+        .catch(error => console.error('Error loading images:', error));
+
+
+    /*fetch('/comment', { method: 'POST' })
         .then(response => response.json())
         .then(pictures => {
             const gallery = document.getElementById('image-gallery');
@@ -176,7 +240,7 @@
                 loadComments(picture.name, container);
             });
         })
-        .catch(error => console.error('Error loading images:', error));
+        .catch(error => console.error('Error loading images:', error));*/
 </script>
 </body>
 </html>

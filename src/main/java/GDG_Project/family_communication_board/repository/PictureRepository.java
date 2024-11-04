@@ -1,6 +1,7 @@
 package GDG_Project.family_communication_board.repository;
 
 import GDG_Project.family_communication_board.entity.Picture;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -22,4 +23,5 @@ PictureRepository {
 
     @Select("SELECT id, picture_name AS name, upload_date AS uploadDate FROM picture WHERE picture_name = #{name}")
     Picture findPictureById(Long id);
+
 }

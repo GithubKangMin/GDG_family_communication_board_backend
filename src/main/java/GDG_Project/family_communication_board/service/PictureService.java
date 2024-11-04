@@ -28,8 +28,6 @@ public class PictureService {
     public void uploadPicture(MultipartFile file) throws IOException {
         byte[] bytes = file.getBytes();
 
-//        Path path = Paths.get(uploadDirectory, file.getOriginalFilename());
-
         // 파일 이름에 타임스탬프를 추가하여 유니크하게 저장
         String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path path = Paths.get(uploadDirectory, filename);
@@ -49,4 +47,5 @@ public class PictureService {
     public List<Picture> findAllPicture() {
         return pictureRepository.findAllPicture();
     }
+
 }
