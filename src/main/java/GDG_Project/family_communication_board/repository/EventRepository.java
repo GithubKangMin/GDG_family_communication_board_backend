@@ -1,6 +1,6 @@
 package GDG_Project.family_communication_board.repository;
 
-import GDG_Project.family_communication_board.entity.Event;
+import GDG_Project.family_communication_board.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

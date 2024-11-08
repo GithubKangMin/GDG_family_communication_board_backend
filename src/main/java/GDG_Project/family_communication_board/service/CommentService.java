@@ -1,6 +1,6 @@
 package GDG_Project.family_communication_board.service;
 
-import GDG_Project.family_communication_board.entity.Comment;
+import GDG_Project.family_communication_board.model.Comment;
 import GDG_Project.family_communication_board.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

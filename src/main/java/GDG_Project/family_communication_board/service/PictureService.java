@@ -1,6 +1,6 @@
 package GDG_Project.family_communication_board.service;
 
-import GDG_Project.family_communication_board.entity.Picture;
+import GDG_Project.family_communication_board.model.Picture;
 import GDG_Project.family_communication_board.repository.PictureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

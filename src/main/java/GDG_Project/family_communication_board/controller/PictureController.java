@@ -1,7 +1,7 @@
 package GDG_Project.family_communication_board.controller;
 
-import GDG_Project.family_communication_board.entity.Comment;
-import GDG_Project.family_communication_board.entity.Picture;
+import GDG_Project.family_communication_board.model.Comment;
+import GDG_Project.family_communication_board.model.Picture;
 import GDG_Project.family_communication_board.service.CommentService;
 import GDG_Project.family_communication_board.service.PictureService;
 import lombok.extern.slf4j.Slf4j;

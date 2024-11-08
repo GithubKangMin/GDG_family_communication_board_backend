@@ -1,4 +1,4 @@
-package GDG_Project.family_communication_board.entity;
+package GDG_Project.family_communication_board.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

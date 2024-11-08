@@ -1,6 +1,6 @@
 package GDG_Project.family_communication_board.repository;
 
-import GDG_Project.family_communication_board.entity.Picture;
+import GDG_Project.family_communication_board.model.Picture;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
