@@ -1,6 +1,6 @@
 package GDG_Project.family_communication_board.service;
 
-import GDG_Project.family_communication_board.entity.Event;
+import GDG_Project.family_communication_board.model.Event;
 import GDG_Project.family_communication_board.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

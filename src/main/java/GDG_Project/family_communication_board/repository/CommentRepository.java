@@ -1,6 +1,6 @@
 package GDG_Project.family_communication_board.repository;
 
-import GDG_Project.family_communication_board.entity.Comment;
+import GDG_Project.family_communication_board.model.Comment;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
