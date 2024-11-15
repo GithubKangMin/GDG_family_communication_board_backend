@@ -1,0 +1,32 @@
+참고: https://skyriv312079.tistory.com/35
+
+
+resources/static/upload 폴더는 항상 비우거나 삭제하기!!!
+
+
+db 초기 쿼리
+delete from picture;
+ALTER TABLE picture AUTO_INCREMENT = 1;
+
+CREATE TABLE picture (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    picture_name VARCHAR(255) NOT NULL,
+    upload_date INT NOT NULL
+);
+
+create table comment(
+  id BIGINT not null auto_increment,
+     content varchar (255) not null,
+     picture_name varchar(255) not null,
+     primary key (id)
+ );
+
+
+1. 전체 크기 좀 늘리기, 현재: 댓글 최대 사이즈 기준 플렉스 처리?
+2. upload.html <-> comment.html a 링크 추가
+3. 페이지 디자인 만지기
+
+
+test
+
+test

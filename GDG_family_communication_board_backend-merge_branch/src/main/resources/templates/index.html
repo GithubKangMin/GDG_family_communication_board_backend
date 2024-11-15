@@ -1,0 +1,44 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+<div class="container">
+    <h1>INDEX</h1>
+    <a href="upload">사진 업로드</a>
+    <br>
+    <a href="comment">댓글</a>
+    <br>
+    <a href="#" onclick="registerUser()">회원가입</a>
+    <br>
+    <a href="/api/events/calendar">일정</a> <!-- 링크 수정 -->
+</div>
+
+<script>
+    function registerUser() {
+        fetch('/api/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: 'exampleUser',
+                password: 'examplePassword',
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('회원가입 성공:', data);
+            })
+            .catch(error => {
+                console.error('회원가입 오류:', error);
+            });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+body, h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+#image-gallery {
+    border: 1px solid #333;
+    padding: 20px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.picture-container {
+    border: 1px solid #333;
+    padding: 15px;
+    margin-top: 30px; /* Increase top margin */
+    margin-bottom: 10px; /* Reduce bottom margin */
+    position: relative; /* To position delete button at top-right */
+}
+
+.comment-box {
+    margin-top: 10px;
+    text-align: left;
+    word-break: break-word; /* Allow long comments to wrap to the next line */
+}
+
+.delete-photo-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+
+img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+}
+
+.comment-box {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.comment {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.delete-btn {
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+}
