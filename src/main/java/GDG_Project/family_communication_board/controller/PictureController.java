@@ -114,14 +114,21 @@ public class PictureController {
         return ResponseEntity.ok("Comment deleted successfully");
     }
 
-    
-    // 전체 삭제
+
     @DeleteMapping("/deletePicture")
     @ResponseBody
     public ResponseEntity<String> deletePicture(@RequestParam String pictureName) {
-        commentService.deleteCommentsByPictureName(pictureName); // Implement this to delete all comments for the picture
-        return ResponseEntity.ok("Picture and associated comments deleted successfully");
+        log.info("Starting deletion process for picture and associated comments: {}", pictureName);
+        try {
+            // 사진과 댓글을 함께 삭제
+            pictureService.deletePictureAndComments(pictureName); // 서비스 호출
+            return ResponseEntity.ok("Picture and associated comments deleted successfully");
+        } catch (Exception e) {
+            log.error("Error during deletion of picture and comments: {}", pictureName, e);
+            return ResponseEntity.status(500).body("Failed to delete picture and comments");
+        }
     }
+
 
 
 }

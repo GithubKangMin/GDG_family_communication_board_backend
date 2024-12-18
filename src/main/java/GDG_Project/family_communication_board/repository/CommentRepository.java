@@ -1,25 +1,25 @@
 package GDG_Project.family_communication_board.repository;
 
 import GDG_Project.family_communication_board.entity.Comment;
-import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-@Mapper
-public interface CommentRepository {
 
-    @Insert("INSERT INTO comment (picture_name, content) VALUES (#{pictureName}, #{content})")
-    void addComment(Comment comment);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Delete("DELETE FROM comment WHERE  content = #{content} AND picture_name = #{pictureName}")
-    void deleteComment(@Param("pictureName") String pictureName, @Param("content") String content);
+@Repository
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Select("SELECT * FROM comment WHERE picture_name = #{pictureName}")
-    List<Comment> findCommentsByPictureName(String pictureName);
+    List<Comment> findByPictureName(String pictureName);
 
-    @Delete("DELETE FROM comment WHERE picture_name = #{pictureName}")
-    void deleteCommentsByPictureName(@Param("pictureName") String pictureName);
+    @Modifying
+    @Transactional
+    void deleteByPictureNameAndContent(String pictureName, String content);
 
-    @Delete("DELETE FROM picture WHERE picture_name = #{pictureName}")
-    void deletePictureByPictureName(@Param("pictureName") String pictureName);
+    @Modifying
+    @Transactional
+    void deleteByPictureName(String pictureName);
 }
