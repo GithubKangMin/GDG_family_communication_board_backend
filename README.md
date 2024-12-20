@@ -15,3 +15,11 @@
 사진을 업로드하면 바로 해당 창으로 이동 & 메인페이지에서 댓글 버튼 눌러도 이동
 
 
+일정 등록 페이지
+<img width="1364" alt="스크린샷 2024-12-20 오후 10 24 09" src="https://github.com/user-attachments/assets/7490b629-6de9-4b8f-9311-1fe7bd71dd27" />
+어느 유저든 등록할 수 있습니다. 삭제는 관리자 승인이 있어야 가능합니다. 
+
+일정등록
+<img width="1362" alt="스크린샷 2024-12-20 오후 10 24 20" src="https://github.com/user-attachments/assets/856ef353-6a0f-4cb4-9ff4-15e81dc068ad" />
+일정을 등록하면 해당 날짜에 일정이 등록됩니다. 
+
